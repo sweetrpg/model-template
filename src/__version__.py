@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # FANCY ASCII ART HERE
 
 __title__ = 'PACKAGE_NAME'
