@@ -1,1 +1,1 @@
-# profile-template
+# model-template
