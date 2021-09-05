@@ -44,12 +44,6 @@ requires = [
     'charset_normalizer~=2.0.0; python_version >= "3"',
 
 ]
-test_requirements = [
-    'pytest-cov',
-    'pytest-mock',
-    'pytest-xdist',
-    'pytest>=3'
-]
 
 about = {}
 with open(os.path.join(here, 'src', '__version__.py'), 'r', 'utf-8') as f:
@@ -85,13 +79,13 @@ setup(
         'Programming Language :: Python :: Implementation :: PyPy'
     ],
     cmdclass={'test': PyTest},
-    tests_require=test_requirements,
-    extras_require={
-        'security': [],
-        'use_chardet_on_py3': ['chardet>=3.0.2,<5']
-    },
     project_urls={
         'Documentation': 'https://PACKAGE_NAME.readthedocs.io',
         'Source': 'https://github.com/sweetrpg/REPO_NAME',
+    },
+    entry_points={
+        'console_scripts': [
+            'sweetrpg_libary_model = sweetrpg_libary_model.cli:main',
+        ]
     },
 )
