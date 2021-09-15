@@ -1,3 +1,5 @@
 {
-    "restructuredtext.confPath": ""
+    "restructuredtext.confPath": "",
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
 }
