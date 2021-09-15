@@ -64,6 +64,18 @@
         "visualstudioexptteam.vscodeintellicode",
         "vscode-icons-team.vscode-icons",
         "wayou.vscode-todo-highlight",
+        "njpwerner.autodocstring",
+        "donjayamanne.python-extension-pack",
+        "mikeshaker.python-essentials",
+        "mgesbert.python-path",
+        "kdcro101.vscode-redis",
+        "gruntfuggly.renumber-selection",
+        "kortina.run-in-terminal",
+        "tomoki1207.selectline-statusbar",
+        "slevesque.vscode-zipexplorer",
+        "hilleer.yaml-plus-json",
+        "lehni.vscode-titlebar-less-macos",
+        "lextudio.restructuredtext"
     ],
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
     "forwardPorts": [],

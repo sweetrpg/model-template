@@ -1,1 +1,1 @@
-# model-template
+# lib-template

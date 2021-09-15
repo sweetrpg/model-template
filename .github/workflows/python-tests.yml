@@ -1,4 +1,4 @@
-name: Unit tests
+name: Tests
 
 on:
     push:
@@ -19,19 +19,43 @@ on:
             - "requirements/**"
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
-
+    tests:
+        name: ${{ matrix.name }}
+        runs-on: ${{ matrix.os }}
+        strategy:
+            fail-fast: false
+            matrix:
+                include:
+                    - {
+                          name: Linux,
+                          python: "3.9",
+                          os: ubuntu-latest,
+                          tox: py39,
+                      }
+                    - {
+                          name: Windows,
+                          python: "3.9",
+                          os: windows-latest,
+                          tox: py39,
+                      }
+                    - { name: Mac, python: "3.9", os: macos-latest, tox: py39 }
         steps:
             - uses: actions/checkout@v2
-            - name: Setup SSH Keys and known_hosts
-              env:
-                  SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+            - uses: actions/setup-python@v2
+              with:
+                  python-version: ${{ matrix.python }}
+            - name: update pip
               run: |
-                  ssh-agent -a $SSH_AUTH_SOCK > /dev/null
-                  ssh-add - <<< "${{ secrets.SSH_PRIVATE_KEY }}"
-            - name: Run tests
-              env:
-                  SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-              run: |
-                  echo "TODO"
+                  pip install -U wheel
+                  pip install -U setuptools
+                  python -m pip install -U pip
+            - name: get pip cache dir
+              id: pip-cache
+              run: echo "::set-output name=dir::$(pip cache dir)"
+            - name: cache pip
+              uses: actions/cache@v2
+              with:
+                  path: ${{ steps.pip-cache.outputs.dir }}
+                  key: pip|${{ runner.os }}|${{ matrix.python }}|${{ hashFiles('setup.py') }}|${{ hashFiles('requirements/*.txt') }}
+            - run: pip install tox
+            - run: tox -e ${{ matrix.tox }}
